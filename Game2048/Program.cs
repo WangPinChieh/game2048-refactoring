@@ -58,33 +58,41 @@ namespace Game2048
 				ConsoleKeyInfo input = Console.ReadKey(true); // BLOCKING TO WAIT FOR INPUT
 				Console.WriteLine(input.Key.ToString());
 
-				switch (input.Key)
-				{
-					case ConsoleKey.UpArrow:
-						hasUpdated = Update(Direction.Up);
-						break;
-
-					case ConsoleKey.DownArrow:
-						hasUpdated = Update(Direction.Down);
-						break;
-
-					case ConsoleKey.LeftArrow:
-						hasUpdated = Update(Direction.Left);
-						break;
-
-					case ConsoleKey.RightArrow:
-						hasUpdated = Update(Direction.Right);
-						break;
-
-					default:
-						hasUpdated = false;
-						break;
-				}
+				hasUpdated = ProcessInput(input);
 			}
 			while (true); // use CTRL-C to break out of loop
 
 			Console.WriteLine("Press any key to quit...");
 			Console.Read();
+		}
+
+		private bool ProcessInput(ConsoleKeyInfo input)
+		{
+			bool hasUpdated;
+			switch (input.Key)
+			{
+				case ConsoleKey.UpArrow:
+					hasUpdated = Update(Direction.Up);
+					break;
+
+				case ConsoleKey.DownArrow:
+					hasUpdated = Update(Direction.Down);
+					break;
+
+				case ConsoleKey.LeftArrow:
+					hasUpdated = Update(Direction.Left);
+					break;
+
+				case ConsoleKey.RightArrow:
+					hasUpdated = Update(Direction.Right);
+					break;
+
+				default:
+					hasUpdated = false;
+					break;
+			}
+
+			return hasUpdated;
 		}
 
 		private static ConsoleColor GetNumberColor(ulong num)
